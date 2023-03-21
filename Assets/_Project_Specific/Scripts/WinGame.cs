@@ -13,7 +13,6 @@ public class WinGame : MonoBehaviour
             return;
         }  */
 
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Player"))
         {
             var Confettieffect = Instantiate(ConfetiEffect, transform);

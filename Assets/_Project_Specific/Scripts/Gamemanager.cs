@@ -17,6 +17,10 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] public Joystick _Joystick;
     [SerializeField] public List<GameObject> Levels = new List<GameObject>();
     public bool Isstarted;
+
+
+    public AudioSource m_win;
+    public AudioSource m_loose;
     public int ForceLevel
     {
         get { return PlayerPrefs.GetInt("ForceLevel", -1); }
@@ -50,14 +54,18 @@ public class Gamemanager : MonoBehaviour
     {
         if (!IsUIOpen)
         {
+            AdsManager.inst.ShowInterstitial("");
             GameOver_Panel.SetActive(true);
             _Joystick.gameObject.SetActive(false);
             Debug.Log("Call Ones");
             IsUIOpen = true;
+            m_loose.Play();
         }
     }
     public void WinGame()
     {
+        AdsManager.inst.ShowInterstitial("");
+        m_win.Play();
         IsUIOpen = true;
         Win_Panel.SetActive(true);
     }
@@ -107,6 +115,7 @@ public class Gamemanager : MonoBehaviour
     }
     public void LevelLoad(int Level_no)
     {
+       AdsManager.inst.RequestAndLoadInterstitialAd();
         MenuDrag.SetActive(true);
         IsUIOpen = false;
         GameObject g;

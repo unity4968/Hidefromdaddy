@@ -96,8 +96,8 @@ public class Enemy : MonoBehaviour
                 nearestDist = dist;
             }
         }
-        Debug.Log(nearest);
-        Debug.Log(m_MoveTransforms[nearest]);
+        //Debug.Log(nearest);
+        //Debug.Log(m_MoveTransforms[nearest]);
         return nearest;
     }
     public void OnCollisionEnter(Collision collision)

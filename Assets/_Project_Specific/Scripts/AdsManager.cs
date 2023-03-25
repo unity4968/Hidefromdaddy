@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AdsManager : MonoBehaviour
 {
     public static AdsManager inst;
 
-    public bool useTestId = false;
     [Header("Android")] private string AndroidAppID = "ca-app-pub-1107552888714987~6336148998";
 
     private string AndroidBannerID,
@@ -42,11 +42,45 @@ public class AdsManager : MonoBehaviour
     //private string AdURL = "http://android-admin-api.maheshpatel.me/v1/adSettingId?applicationMasterId=63f46a23f8445dcd0ed54e6c";
 
 
+    public Button m_HideDaddy;
+    public Button m_Simulator;
+
+    public void SetRefs()
+    {
+        Debug.Log("Reset");
+    }
+    private void Start()
+    {
+        // m_HideDaddy = GameObject.Find("Hide_Daddy").GetComponent<Button>();
+        // m_Simulator = GameObject.Find("Simulator").GetComponent<Button>();
+        m_HideDaddy.onClick.AddListener(HIdeGame);
+        m_Simulator.onClick.AddListener(Simulatorgame);
+    }
+    public void HomeScreen()
+    {
+        SceneManager.LoadScene(0);
+        DOVirtual.DelayedCall(.1f, () =>
+        {
+            m_HideDaddy = GameObject.Find("Hide_Daddy").GetComponent<Button>();
+            m_Simulator = GameObject.Find("Simulator").GetComponent<Button>();
+
+            m_HideDaddy.onClick.AddListener(HIdeGame);
+            m_Simulator.onClick.AddListener(Simulatorgame);
+        });
+    }
+
+    public void HIdeGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void Simulatorgame()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     [Obsolete]
     private void Awake()
     {
-        /*  inst = this;
-          DontDestroyOnLoad(this.gameObject);*/
         if (inst == null)
         {
             inst = this;
@@ -312,7 +346,7 @@ public class AdsManager : MonoBehaviour
             {
                 AndroidIntertitialID = myDeserializedClass.getProfile[0].googleAdmob.interstitial;
             }
-         
+
 
             if (myDeserializedClass.getProfile[0].googleAdmob.rewarded != "")
             {
@@ -331,25 +365,25 @@ public class AdsManager : MonoBehaviour
             RewardVideoID = AndroidRewardVideoID;
 
 
-          /*  Debug.Log("BannerId::" + BannerID);
-            Debug.Log("IntertitialID::" + IntertitialID);
-            Debug.Log("RewardVideoID::" + RewardVideoID);*/
+            /*  Debug.Log("BannerId::" + BannerID);
+              Debug.Log("IntertitialID::" + IntertitialID);
+              Debug.Log("RewardVideoID::" + RewardVideoID);*/
 
-             if (BannerID == "")
-             {
-                 BannerID = "ca-app-pub-3940256099942544/6300978111";
-                 Debug.Log("BannerId::" + BannerID);
-             }
-             if (IntertitialID == "")
-             {
-                 IntertitialID = "ca-app-pub-3940256099942544/1033173712";
-                 Debug.Log("Inter::" + IntertitialID);
-             }
-             if (RewardVideoID == "")
-             {
-                 RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-                 Debug.Log("rewordvideo:" + RewardVideoID);
-             }
+            if (BannerID == "")
+            {
+                BannerID = "ca-app-pub-3940256099942544/6300978111";
+                Debug.Log("BannerId::" + BannerID);
+            }
+            if (IntertitialID == "")
+            {
+                IntertitialID = "ca-app-pub-3940256099942544/1033173712";
+                Debug.Log("Inter::" + IntertitialID);
+            }
+            if (RewardVideoID == "")
+            {
+                RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
+                Debug.Log("rewordvideo:" + RewardVideoID);
+            }
 
 #elif UNITY_IPHONE
             AppID = IOSAppID;

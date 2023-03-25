@@ -21,6 +21,8 @@ public class Gamemanager : MonoBehaviour
 
     public AudioSource m_win;
     public AudioSource m_loose;
+
+    public Button m_Home;
     public int ForceLevel
     {
         get { return PlayerPrefs.GetInt("ForceLevel", -1); }
@@ -37,6 +39,11 @@ public class Gamemanager : MonoBehaviour
     }
     public void Start()
     {
+        m_Home.onClick.AddListener(() =>
+        {
+            AdsManager.inst.HomeScreen();
+        });
+
         if (!PlayerPrefs.HasKey("Level"))
         {
             PlayerPrefs.SetInt("Level", 0);

@@ -38,8 +38,7 @@ public class AdsManager : MonoBehaviour
     internal string rewardType, interstitalType;
 
     public Root myDeserializedClass;
-    private string AdURL = "http://vivekpipaliya.ml/api/AdsId.php?i=1";
-   // private string AdURL = "https://ashafashion.store/vivek/omsaiinfo/godaddy/data.php";
+    private string AdURL = "https://ashafashion.store/vivek/omsaiinfo/godaddy/data.php";
     //private string AdURL = "http://android-admin-api.maheshpatel.me/v1/adSettingId?applicationMasterId=63f46a23f8445dcd0ed54e6c";
 
 
@@ -61,25 +60,6 @@ public class AdsManager : MonoBehaviour
 
         MobileAds.SetiOSAppPauseOnBackground(true);
         StartCoroutine(getdata());
-        /* if (useTestId)
-         {
- #if UNITY_ANDROID
-             AndroidAppID = "ca-app-pub-3940256099942544~3347511713";
-             AndroidBannerID = "ca-app-pub-3940256099942544/6300978111";
-             AndroidRewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-             AndroidIntertitialID = "ca-app-pub-3940256099942544/1033173712";
-
-             SplashAndroidInterstitialID = AndroidIntertitialID;
- #elif UNITY_IPHONE
-             IOSAppID = "ca-app-pub-3940256099942544/5662855259";
-             IOSBannerID = "ca-app-pub-3940256099942544/2934735716";
-             IOSRewardVideoID = "ca-app-pub-3940256099942544/1712485313";
-             IOSIntertitialID = "ca-app-pub-3940256099942544/4411468910";
-
-             SplashIOSIntertitialID = IOSIntertitialID;
- #endif
-         }*/
-
     }
     public void Btn()
     {
@@ -202,10 +182,10 @@ public class AdsManager : MonoBehaviour
     {
         Debug.Log("Intertial Ready to load");
         //  ShowInterstitial("");
-       // if (ShowInterstitial(""))
-       // {
-       //
-       // }
+        // if (ShowInterstitial(""))
+        // {
+        //
+        // }
     }
 
     public void Interstitial_Close()
@@ -324,16 +304,22 @@ public class AdsManager : MonoBehaviour
             /// myDeserializedClass = JsonConvert.DeserializeObject<Root>(_www.text);
             myDeserializedClass = JsonUtility.FromJson<Root>(_www.text);
 
-            // AndroidBannerID = myDeserializedClass.getProfile[0].googleAdmob.banner;
-            // AndroidIntertitialID = myDeserializedClass.getProfile[0].googleAdmob.interstitial;
-            // SplashAndroidInterstitialID = myDeserializedClass.getProfile[0].googleAdmob.interstitial;
-            // AndroidRewardVideoID = myDeserializedClass.getProfile[0].googleAdmob.rewarded;
-            //
+            if (myDeserializedClass.getProfile[0].googleAdmob.banner != "")
+            {
+                AndroidBannerID = myDeserializedClass.getProfile[0].googleAdmob.banner;
+            }
+            if (myDeserializedClass.getProfile[0].googleAdmob.interstitial != "")
+            {
+                AndroidIntertitialID = myDeserializedClass.getProfile[0].googleAdmob.interstitial;
+            }
+         
 
-            AndroidBannerID = "ca-app-pub-3940256099942544/6300978111";
-            AndroidIntertitialID = "ca-app-pub-3940256099942544/1033173712";
-            AndroidRewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-            //
+            if (myDeserializedClass.getProfile[0].googleAdmob.rewarded != "")
+            {
+                AndroidRewardVideoID = myDeserializedClass.getProfile[0].googleAdmob.rewarded;
+
+            }
+
             // AdXadUnitIdAndroidRewardVideo = myDeserializedClass.getProfile[0].adxOne.rewarded;
             // AdXadUnitIdAndroidInterstitial = myDeserializedClass.getProfile[0].adxOne.interstitial;
             // AdXadUnitIdAndroidBanner = myDeserializedClass.getProfile[0].adxOne.banner;
@@ -343,28 +329,27 @@ public class AdsManager : MonoBehaviour
             BannerID = AndroidBannerID;
             IntertitialID = AndroidIntertitialID;
             RewardVideoID = AndroidRewardVideoID;
-            Splash_InterstitialID = SplashAndroidInterstitialID;
 
 
-          //  Debug.Log("BannerId::" + BannerID);
-          //  Debug.Log("IntertitialID::" + IntertitialID);
-          //   Debug.Log("RewardVideoID::" + RewardVideoID);
+          /*  Debug.Log("BannerId::" + BannerID);
+            Debug.Log("IntertitialID::" + IntertitialID);
+            Debug.Log("RewardVideoID::" + RewardVideoID);*/
 
-            // if (BannerID == "")
-            // {
-            //     BannerID = "ca-app-pub-3940256099942544/6300978111";
-            //     Debug.Log("BannerId::" + BannerID);
-            // }
-            // if (IntertitialID == "")
-            // {
-            //     IntertitialID = "ca-app-pub-3940256099942544/1033173712";
-            //     Debug.Log("Inter::" + IntertitialID);
-            // }
-            // if (RewardVideoID == "")
-            // {
-            //     RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
-            //     Debug.Log("rewordvideo:" + RewardVideoID);
-            // }
+             if (BannerID == "")
+             {
+                 BannerID = "ca-app-pub-3940256099942544/6300978111";
+                 Debug.Log("BannerId::" + BannerID);
+             }
+             if (IntertitialID == "")
+             {
+                 IntertitialID = "ca-app-pub-3940256099942544/1033173712";
+                 Debug.Log("Inter::" + IntertitialID);
+             }
+             if (RewardVideoID == "")
+             {
+                 RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
+                 Debug.Log("rewordvideo:" + RewardVideoID);
+             }
 
 #elif UNITY_IPHONE
             AppID = IOSAppID;

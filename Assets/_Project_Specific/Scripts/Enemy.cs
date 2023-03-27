@@ -102,8 +102,7 @@ public class Enemy : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.layer == 8 && collision.gameObject.GetComponent<Ref>().isref)
+    /*    if (collision.gameObject.layer == 8 && collision.gameObject.GetComponent<Ref>().isref)
         {
             var otherobjControl = collision.gameObject.GetComponent<ObjectControls>();
             if (otherobjControl.m_PlayerInside)
@@ -111,30 +110,32 @@ public class Enemy : MonoBehaviour
                 PauseWalking();
                 Steering.FaceTowardsTransform = collision.gameObject.transform;
                 m_ThisAnimator.SetBool("GunAttack", true);
+
+                Gamemanager.Instance.Gameover();
                 //otherobjControl.OnDestroyThisThing();
                 OnEnemyDie();
             }
 
-        }
+        }*/
     }
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.CompareTag("Player"))//else if
+        if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log(other.transform.parent.parent.name);
+            Player m_player = other.transform.parent.parent.GetComponent<Player>();
             PauseWalking();
             if (m_EnemyAttackMode == AttackMode.Gun)
             {
                 Steering.FaceTowardsTransform = other.transform;
                 m_ThisAnimator.SetBool("GunAttack", true);
+                m_player.IsInOtherObject = true;
+                m_player.canMove = false;
+                Gamemanager.Instance.Gameover();
                 Invoke(nameof(Start), 10);
             }
             //Player
         }
-
-    }
-    private void OnTriggerStay(Collider other)
-    {
 
     }
     private void OnEnemyDie()

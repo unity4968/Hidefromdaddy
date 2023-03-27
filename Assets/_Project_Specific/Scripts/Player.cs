@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     Vector3 movementDir;
     // Input Controls
     Joystick m_joystick;
-    private bool canMove = true;
+    internal bool canMove = true;
     [SerializeField] internal Animator m_Animator;
     public float Health = 50f;
     [SerializeField] Image Helthbar;
@@ -94,44 +94,70 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 && other.gameObject.GetComponent<Ref>().isref)
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            var OtherObj = other.GetComponent<ObjectControls>();
-            if (OtherObj.IsAmongGuy)
-            {               
-                var Among_guy = other.GetComponent<Among_usPlayer>();
-                Among_guy.m_Animator.SetBool("Run", true);
+            if (Vector3.Distance(transform.position, other.transform.position) < 1.5f)
+            {
+                m_Animator.SetBool("HandAttack", true);
+
+                IsInOtherObject = true;
+                canMove = false;
+
+                Gamemanager.Instance.Gameover();
+                Debug.Log("Game Loose");
+                transform.LookAt(other.transform);
+                Health -= Time.deltaTime * 2;
+                //Helthbar.fillAmount = Health;
             }
-            if (OtherObj.m_PlayerInside == this) return;//Comment tempory
-            OtherObj.enabled = true;
-            OtherObj.m_PlayerInside = this;
-            OtherObj.SetAllColor(Color.blue);            
-            OtherObj.m_AttachedCollider.isTrigger = false;
-            OtherObj.m_Rigidbody.useGravity = true;
-            Transform ase = other.gameObject.transform;
-
-            OnMoveIntoOther(ase, true, false);
-
-        }
-        if (other.CompareTag("Bullet") && Health > 1)
-        {
-            Destroy(other.gameObject);
-            Health -= 10.0f;
-            Helthbar.fillAmount = Health/50f;
             if (Health <= 0)
             {
-                /*var otheranimator = other.gameObject.GetComponent<Animator>();
+                var otheranimator = other.gameObject.GetComponent<Animator>();
                 if (otheranimator)
                 {
                     otheranimator.SetBool("GunAttack", false);
                     otheranimator.SetBool("HandAttack", false);
-                }*/
+                }
                 OnPlayerDie();
             }
         }
+        /* if (other.gameObject.layer == 8 && other.gameObject.GetComponent<Ref>().isref)
+         {
+             var OtherObj = other.GetComponent<ObjectControls>();
+             if (OtherObj.IsAmongGuy)
+             {               
+                 var Among_guy = other.GetComponent<Among_usPlayer>();
+                 Among_guy.m_Animator.SetBool("Run", true);
+             }
+             if (OtherObj.m_PlayerInside == this) return;//Comment tempory
+             OtherObj.enabled = true;
+             OtherObj.m_PlayerInside = this;
+             OtherObj.SetAllColor(Color.blue);            
+             OtherObj.m_AttachedCollider.isTrigger = false;
+             OtherObj.m_Rigidbody.useGravity = true;
+             Transform ase = other.gameObject.transform;
+
+             OnMoveIntoOther(ase, true, false);
+
+         }
+         if (other.CompareTag("Bullet") && Health > 1)
+         {
+             Destroy(other.gameObject);
+             Health -= 10.0f;
+             Helthbar.fillAmount = Health/50f;
+             if (Health <= 0)
+             {
+                 *//*var otheranimator = other.gameObject.GetComponent<Animator>();
+                 if (otheranimator)
+                 {
+                     otheranimator.SetBool("GunAttack", false);
+                     otheranimator.SetBool("HandAttack", false);
+                 }*//*
+                 OnPlayerDie();
+             }
+         }*/
     }
     private void OnTriggerStay(Collider other)
-    {
+    {/*
         if (other.gameObject.CompareTag("Enemy") && Health > 0)
         {
             if (Vector3.Distance(transform.position, other.transform.position) < 1.5f)
@@ -153,7 +179,7 @@ public class Player : MonoBehaviour
                 }
                 OnPlayerDie();
             }
-        }
+        }*/
     }
     private void OnTriggerExit(Collider other)
     {
@@ -201,7 +227,7 @@ public class Player : MonoBehaviour
     }
     void Movement()
     {
-        if (!canMove || Health <= 0) return;
+        if (!canMove) return;
 
         if (m_joystick == null)
             m_joystick = Gamemanager.Instance._Joystick;
@@ -225,7 +251,7 @@ public class Player : MonoBehaviour
                 isJoystickActive = true;
               //  m_joystick.SetColor();
             }
-            m_Animator.SetBool("HandAttack", false);
+           // m_Animator.SetBool("HandAttack", false);
          //   m_Animator.SetBool("Jump", false);
             m_Animator.SetBool("Run", true);
             transform.localPosition = new Vector3(transform.localPosition.x + movementDir.x * movementSpeed * Time.deltaTime, transform.localPosition.y, transform.localPosition.z + movementDir.z * movementSpeed * Time.deltaTime);//old is -0.633f

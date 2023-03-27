@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hide_Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/_Game/Your Daddy/Scene/HorrorHideAndSeek/HHS Project/Scenes/DemoMobile.unity
+    guid: 506f26b29c2592543add520ccf971799
   m_configObjects: {}

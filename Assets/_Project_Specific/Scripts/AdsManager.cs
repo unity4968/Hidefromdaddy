@@ -71,10 +71,12 @@ public class AdsManager : MonoBehaviour
 
     public void HIdeGame()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene(1);
     }
     public void Simulatorgame()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         SceneManager.LoadScene(2);
     }
 

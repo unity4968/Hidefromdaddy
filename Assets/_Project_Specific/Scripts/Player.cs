@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     //    m_rectbar.gameObject.SetActive(true);//tempory comment
         Helthbar.fillAmount = 1f;
         m_joystick = Gamemanager.Instance._Joystick;
-        m_joystick.KillJoystick();
+        //m_joystick.KillJoystick();
     }
 #if UNITY_EDITOR
     private void Update()
@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
             if (!isJoystickActive)
             {
                 isJoystickActive = true;
-                m_joystick.SetColor();
+              //  m_joystick.SetColor();
             }
             m_Animator.SetBool("HandAttack", false);
          //   m_Animator.SetBool("Jump", false);

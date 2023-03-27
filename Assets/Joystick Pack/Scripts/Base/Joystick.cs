@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
@@ -145,21 +144,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
         }
         return Vector2.zero;
-    }
-    public void KillJoystick()
-    {
-        handle.anchoredPosition = Vector2.zero;
-        var m_color = new Color();
-        m_color.a = 0;
-        background.GetComponent<Image>().color= m_color;
-        handle.GetComponent<Image>().color= m_color;
-        input = Vector2.zero;        
-    }
-    public  void SetColor()
-    {
-        var m_color = Color.white;       
-        background.GetComponent<Image>().color = m_color;
-        handle.GetComponent<Image>().color = m_color;
     }
 }
 

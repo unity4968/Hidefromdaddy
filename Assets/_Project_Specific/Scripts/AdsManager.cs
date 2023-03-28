@@ -58,6 +58,7 @@ public class AdsManager : MonoBehaviour
     }
     public void HomeScreen()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
         SceneManager.LoadScene(0);
         DOVirtual.DelayedCall(.1f, () =>
         {
@@ -67,6 +68,7 @@ public class AdsManager : MonoBehaviour
             m_HideDaddy.onClick.AddListener(HIdeGame);
             m_Simulator.onClick.AddListener(Simulatorgame);
         });
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 
     public void HIdeGame()

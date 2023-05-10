@@ -350,14 +350,10 @@ public class AdsManager : MonoBehaviour
             {
                 AndroidIntertitialID = myDeserializedClass.getProfile[0].googleAdmob.interstitial;
             }
-
-
             if (myDeserializedClass.getProfile[0].googleAdmob.rewarded != "")
             {
                 AndroidRewardVideoID = myDeserializedClass.getProfile[0].googleAdmob.rewarded;
-
             }
-
             // AdXadUnitIdAndroidRewardVideo = myDeserializedClass.getProfile[0].adxOne.rewarded;
             // AdXadUnitIdAndroidInterstitial = myDeserializedClass.getProfile[0].adxOne.interstitial;
             // AdXadUnitIdAndroidBanner = myDeserializedClass.getProfile[0].adxOne.banner;
@@ -367,7 +363,6 @@ public class AdsManager : MonoBehaviour
             BannerID = AndroidBannerID;
             IntertitialID = AndroidIntertitialID;
             RewardVideoID = AndroidRewardVideoID;
-
 
             /*  Debug.Log("BannerId::" + BannerID);
               Debug.Log("IntertitialID::" + IntertitialID);
@@ -388,7 +383,6 @@ public class AdsManager : MonoBehaviour
                 RewardVideoID = "ca-app-pub-3940256099942544/5224354917";
                 Debug.Log("rewordvideo:" + RewardVideoID);
             }
-
 #elif UNITY_IPHONE
             AppID = IOSAppID;
             BannerID = IOSBannerID;

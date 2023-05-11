@@ -124977,7 +124977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   sensitivity: 2
-  gravity: 0
+  gravity: 1
   jump: 7
   moveJoystick: {fileID: 3881087802367082316}
   lookJoystick: {fileID: 3881087802782931671}

@@ -18,6 +18,7 @@ public class Gamemanager : MonoBehaviour
     [SerializeField] public List<GameObject> Levels = new List<GameObject>();
     public bool Isstarted;
 
+    public GameObject m_NoInternet;
 
     public AudioSource m_win;
     public AudioSource m_loose;
@@ -36,6 +37,21 @@ public class Gamemanager : MonoBehaviour
     public void Awake()
     {
         Instance = this;
+    }
+
+    [System.Obsolete]
+    public void CheckInternet()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            m_NoInternet.SetActive(true);
+            Debug.Log("Error. Check internet connection!");
+        }
+        else
+        {
+            m_NoInternet.SetActive(false);
+            StartCoroutine(AdsManager.inst.getdata());
+        }
     }
     public void Start()
     {
@@ -59,9 +75,10 @@ public class Gamemanager : MonoBehaviour
     }
     public void Gameover()
     {
+        CheckInternet();
         if (!IsUIOpen)
         {
-            AdsManager.inst.ShowInterstitial("");
+            AdsManager.inst.ShowADs();
             GameOver_Panel.SetActive(true);
             _Joystick.gameObject.SetActive(false);
             Debug.Log("Call Ones");
@@ -71,7 +88,7 @@ public class Gamemanager : MonoBehaviour
     }
     public void WinGame()
     {
-        AdsManager.inst.ShowInterstitial("");
+        AdsManager.inst.ShowADs();
         m_win.Play();
         IsUIOpen = true;
         Win_Panel.SetActive(true);
@@ -116,13 +133,15 @@ public class Gamemanager : MonoBehaviour
     }
     public void OnClickGameStart()
     {
+        CheckInternet();
         Isstarted = true;
         Debug.Log(Isstarted);
         MenuDrag.SetActive(false);
     }
     public void LevelLoad(int Level_no)
     {
-       AdsManager.inst.RequestAndLoadInterstitialAd();
+        CheckInternet();
+        //AdsManager.inst.RequestAndLoadInterstitialAd();
         MenuDrag.SetActive(true);
         IsUIOpen = false;
         GameObject g;
